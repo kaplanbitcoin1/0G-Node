@@ -162,7 +162,7 @@ Cüzdanları Listeleme
 
 Cüzdanı Silme
 
-```shell
+```console
 0gchaind keys delete wallet
 ```
 
