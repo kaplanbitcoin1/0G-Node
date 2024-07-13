@@ -3,7 +3,6 @@
 
 
 ## Sistem gereksinimleri
-|-|-
 | CPU | 8 Cores |
 | Ram | 16 GB |
 | Disk | 1 TB SSD |
