@@ -1,4 +1,6 @@
 
+![0G Node](https://github.com/user-attachments/assets/a0fabd2c-34f3-473f-b2cb-2c569c6c77f5)
+
 
 ## Required Hardware Specifications
 | Required | Specification |
