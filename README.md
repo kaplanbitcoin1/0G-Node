@@ -107,10 +107,12 @@ sudo journalctl -u 0gchaind -f -o cat
 ```
 
 ### Cüzdan oluşturalım
+* Cüzdan isminizi kendinize göre belirleyin
 ```shell
 0gchaind keys add cüzdanismi --eth
 ```
-> çıktıyı kaydetmeyi unutmayalım
+* Çıktıyı kaydetmeyi unutmayalım
+
 
 Private Keyimizi dışa aktarıp Metamask'a ekleyelim
 ```shell
