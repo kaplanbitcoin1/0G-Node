@@ -53,18 +53,13 @@ cd $HOME
 0gchaind init $MONIKER --chain-id $CHAIN_ID
 ```
 
-### genesis.json dosyasını indirelim 
+### Genesis.json dosyasını indirelim 
 ```shell
 curl -Ls https://github.com/0glabs/0g-chain/releases/download/v0.2.3/genesis.json > $HOME/.0gchain/config/genesis.json
 ```
 
-Then verify if the genesis configuration file is correct.
-```bash
-0gchaind validate-genesis
-```
-
-### 7. Update Config
-```bash
+### Config dosyasını güncelleyelim
+```shell
 PEERS="96d615925aee68b90bfaf18d461e799fdcb22211@45.10.162.96:26656,7253c5556119b84f581bf3479db33687c2ff5cfe@38.242.143.169:26656,0aa16751b6c1884e755997d08dc17f8582aa9e38@45.10.163.80:26656,85233db31304a69fb2dda924b5de31c22dfcff5a@45.10.161.188:26656,89e272c0e5007e391f420e4f45e1473f91995025@154.26.155.239:26656,df8947d0bd46f24590e5d4bc3c06c59d543572d0@65.109.92.18:36656,d7ca6521ee30f8cf9eaf32e9edee1101e44c48e9@45.10.161.5:26656,364c45b7cab8a095cb59443f3e91fd102ec9eb95@158.220.118.216:26656,c8807bba12fa67676319df8e049ae5fac690cf55@45.159.228.20:26656,cfd099ade96d82908b4ab185eddbf90379579bfc@84.247.149.9:26656,03619b6f90fab32cd5f0cadbe3021e6a3cda16e3@154.26.156.101:26656,b3411cfb89113055dce89277c7cc7029ce451090@195.201.242.107:26656,bed108e9ce56d84a574fa02df90c734281ae19ef@162.55.65.137:27856,057f64f293f0843c849aa3f1f1e20a1a0add29f8@45.159.222.237:26656,369666051d45ed28379db34a80dfdf13e43d3681@5.104.80.63:26656,bc8898c416f7b22e56782eb16803150fd90863b6@81.0.221.180:26656,6970d09a9e004f6132b30db6eb5e27b6bd53a1d8@158.220.89.199:26656,7ecfe8d9404a4e1ea36cba5d546650da2b97bfd2@45.90.122.129:26656,4d98cf3cb2a61238a0b1557596cdc4b306472cb9@95.216.228.91:13456" && \
 SEEDS="81987895a11f6689ada254c6b57932ab7ed909b6@54.241.167.190:26656,010fb4de28667725a4fef26cdc7f9452cc34b16d@54.176.175.48:26656,e9b4bc203197b62cc7e6a80a64742e752f4210d5@54.193.250.204:26656,68b9145889e7576b652ca68d985826abd46ad660@18.166.164.232:26656" && \
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.0gchain/config/config.toml
@@ -78,8 +73,8 @@ sed -i 's|^\s*#\?\s*address\s*=\s*"127.0.0.1:8545"|address = "0.0.0.0:8545"|' $H
 sed -i 's|^\s*#\?\s*ws-address\s*=\s*"127.0.0.1:8546"|ws-address = "0.0.0.0:8546"|' $HOME/.0gchain/config/app.toml
 ```
 
-### 8. Create a Service File
-```bash
+### Servis oluşturalım
+```shell
 sudo tee /etc/systemd/system/0gchaind.service > /dev/null <<EOF
 [Unit]
 Description=0gchaind Validator Node
@@ -99,37 +94,34 @@ WantedBy=multi-user.target
 EOF
 ```
 
-### 9. Reload Systemd Configuration
-```bash
+### Başlatalım
+```shell
 sudo systemctl daemon-reload
 sudo systemctl enable 0gchaind 
 sudo systemctl start 0gchaind
 ```
 
-### 10. Check Logs
-```bash
+### Logları kontrol edelim
+```shell
 sudo journalctl -u 0gchaind -f -o cat
 ```
 
-### 11. Create Wallet for Validator
-```bash
-0gchaind keys add $WALLET_NAME --eth
+### Cüzdan oluşturalım
+```shell
+0gchaind keys add cüzdanismi --eth
 ```
-> [!CAUTION]
-> **DO NOT FORGET TO SAVE YOUR SEED PHRASE!**
+> çıktıyı kaydetmeyi unutmayalım
 
-Export the private key and add it to Metamask.
-```bash
-0gchaind keys unsafe-export-eth-key $WALLET_NAME
+Private Keyimizi dışa aktarıp Metamask'a ekleyelim
+```shell
+0gchaind keys unsafe-export-eth-key cüzdanismi
 ```
 
 To add the 0G network in Metamask, visit the [0G scanner website](https://scan-testnet.0g.ai/) and connect your wallet. The 0G network will be automatically added to your Metamask wallet.
 
-### 12. Request Tokens via Faucet
-Please click the button below to request from the faucet.
+### Musluktan token isteyelim
 
 <a href="https://faucet.0g.ai/" target="_blank">
-  <img src="https://github.com/BlockchainsHub/Testnet/assets/77204008/12866a81-cac7-451a-96b5-4b202e8f1194" alt="Faucet Button" width="150" height="36.94" border="10" />
 </a>
 
 ### 13. Create a Validator
