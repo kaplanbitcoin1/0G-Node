@@ -10,15 +10,15 @@
 
 
 
-## Manual Node Installation
-### 1. Install Required Packages
-```bash
+## Hazırsanız başlayalım
+### Sunucumuzu güncelleyelim
+```shell
 sudo apt update && \
 sudo apt install curl git jq build-essential gcc unzip wget lz4 -y
 ```
 
-### 2. Install GO
-```bash
+### Go yükleyelim
+```Shell
 cd $HOME && \
 ver="1.22.0" && \
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" && \
@@ -30,31 +30,31 @@ source ~/.bash_profile && \
 go version
 ```
 
-### 3. Build Binary
-```bash
+### Binary Oluşturalım
+```shell
 git clone -b v0.2.3 https://github.com/0glabs/0g-chain.git
 ./0g-chain/networks/testnet/install.sh
 source .profile
 ```
 
-### 4. Set Variables
-You can make several required changes, such as changing `My_Node` in the variable `MONIKER="My_Node"` with any node name you want to use, and `wallet` in the variable `WALLET_NAME="wallet"` with any wallet name you want to use.
-```bash
-echo 'export MONIKER="My_Node"' >> ~/.bash_profile
+### Değişkenleri Ayarlayalım
+* Moniker ve Wallet kısmını kendimize göre ayarlayalım. (Moniker sizin node isminiz olacak) 
+```shell
+echo 'export MONIKER="Moniker"' >> ~/.bash_profile
 echo 'export CHAIN_ID="zgtendermint_16600-2"' >> ~/.bash_profile
-echo 'export WALLET_NAME="wallet"' >> ~/.bash_profile
+echo 'export WALLET_NAME="Wallet"' >> ~/.bash_profile
 source $HOME/.bash_profile
 ```
 
-### 5. Initialize Node
-```bash
+### Node'u başlatalım
+```shell
 cd $HOME
 0gchaind config chain-id $CHAIN_ID
 0gchaind init $MONIKER --chain-id $CHAIN_ID
 ```
 
-### 6. Download genesis.json files
-```bash
+### genesis.json dosyasını indirelim 
+```shell
 curl -Ls https://github.com/0glabs/0g-chain/releases/download/v0.2.3/genesis.json > $HOME/.0gchain/config/genesis.json
 ```
 
