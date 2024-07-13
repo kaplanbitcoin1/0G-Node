@@ -117,256 +117,65 @@ Private Keyimizi dışa aktarıp Metamask'a ekleyelim
 0gchaind keys unsafe-export-eth-key cüzdanismi
 ```
 
-To add the 0G network in Metamask, visit the [0G scanner website](https://scan-testnet.0g.ai/) and connect your wallet. The 0G network will be automatically added to your Metamask wallet.
-
 ### Musluktan token isteyelim
+[Faucet](https://faucet.0g.ai//)
 
-<a href="https://faucet.0g.ai/" target="_blank">
-</a>
-
-### 13. Create a Validator
-```bash
+### Validator oluşturalım
+* Moniker, Wallet ve diğer bilgilerinizi değiştirip eklemeyi unutmayalım. 
+```shell
 0gchaind tx staking create-validator \
   --amount=1000000ua0gi \
   --pubkey=$(0gchaind tendermint show-validator) \
-  --moniker=$MONIKER \
-  --chain-id=$CHAIN_ID \
-  --commission-rate="0.10" \
-  --commission-max-rate="0.20" \
-  --commission-max-change-rate="0.01" \
-  --min-self-delegation="1" \
-  --from=$WALLET_NAME \
-  --gas=auto \
-  --gas-adjustment=1.4 \
-  --fees=800ua0gi \
+  --moniker=MONIKER \
+  --chain-id=zgtendermint_16600-2 \
+  --commission-rate=0.05 \
+  --commission-max-rate=0.10 \
+  --commission-max-change-rate=0.01 \
+  --min-self-delegation=1 \
+  --from=CüzdanAdı \
+  --identity="" \
+  --website="" \
+  --details="" \
+  --node=http://localhost:56657 \
   -y
 ```
-> [!CAUTION]
-> Do not forget to save the `priv_validator_key.json` file located in $HOME/.0gchain/config/
 
------------------------------------------------------------------
 
-# Command List
-## Managing keys
-Generate new key
-```
-0gchaind keys add wallet
-```
 
-Recover key
-```
+# Yararlı Bilgiler
+
+Eski cüzdanınızı ekleme
+
+```console
 0gchaind keys add wallet --eth --recover
 ```
 
-List all key
-```
+Cüzdanları Listeleme
+
+```console
 0gchaind keys list
 ```
 
-Delete key
-```
+Cüzdanı Silme
+
+```shell
 0gchaind keys delete wallet
 ```
 
-Export key
-```
-0gchaind keys export wallet
-```
 
-Import key
-```
-0gchaind keys import wallet wallet.backup
-```
+### Kendine delege etme
+* Wallet kısımlarını cüzdan isminizle değiştirelim
 
-Query wallet balances
-```
-0gchaind q bank balances $(0gchaind keys show wallet -a)
-```
+```console
+0gchaind tx staking delegate $(0gchaind keys show wallet --bech val -a)  1000000ua0gi --from wallet -y
 
------------------------------------------------------------------
 
-## Validator Management
-Create validator
-```
-0gchaind tx staking create-validator \
---amount=1000000ua0gi \
---pubkey=$(0gchaind tendermint show-validator) \
---moniker=$MONIKER \
---identity="keybase-id" \
---details="detailed-info" \
---website="website-link" \
---security-contact="email-address" \
---chain-id=$CHAIN_ID \
---commission-rate="0.10" \
---commission-max-rate="0.20" \
---commission-max-change-rate="0.01" \
---min-self-delegation="1" \
---from=wallet \
---gas=auto \
---gas-adjustment=1.4 \
--y
-```
 
-Edit validator
-```
-0gchaind tx staking edit-validator \
---new-moniker="nama-moniker" \
---identity="keybase-id" \
---details="detailed-info" \
---website="website-link" \
---security-contact="email-address" \
---chain-id=$CHAIN_ID \
---commission-rate="0.10" \
---from=wallet \
---gas=auto \
---gas-adjustment=1.4 \
--y
-```
 
-Unjail validator
-```
-0gchaind tx slashing unjail --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
 
-Validator jail reason
-```
-0gchaind q slashing signing-info $(0gchaind tendermint show-validator)
-```
+Node'u Silme
 
-List active validator
-```
-0gchaind q staking validators -o json --limit=1000 \
-| jq '.validators[] | select(.status=="BOND_STATUS_BONDED")' \
-| jq -r '.tokens + " - " + .description.moniker' \
-| sort -gr | nl
-```
-
-List incative validator
-```
-0gchaind q staking validators -o json --limit=1000 \
-| jq '.validators[] | select(.status=="BOND_STATUS_UNBONDED")' \
-| jq -r '.tokens + " - " + .description.moniker' \
-| sort -gr | nl
-```
-
-View validator details
-```
-0gchaind q staking validator $(0gchaind keys show wallet --bech val -a) 
-```
-
------------------------------------------------------------------
-
-## Managing Tokens
-Withdraw reward from all validator
-```
-0gchaind tx distribution withdraw-all-rewards --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
-Withdraw reward and commission
-```
-0gchaind tx distribution withdraw-rewards $(0gchaind keys show wallet --bech val -a) --commission --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
-Delegate tokens to your validator
-```
-0gchaind tx staking delegate $(0gchaind keys show wallet --bech val -a) 1000000ua0gi --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
-Delegate token to other validator, change `<to-valoper-address>` as you like
-```
-0gchaind tx staking delegate <to-valoper-address> 1000000ua0gi --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
-Redelegate to another validator
-```
-0gchaind tx staking redelegate $(0gchaind keys show wallet --bech val -a) <to-valoper-address> 1000000ua0gi --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
-Unbond token from your own validator
-```
-0gchaind tx staking unbond $(0gchaind keys show wallet --bech val -a) 1000000ua0gi --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
-Send token to the wallet
-```
-0gchaind tx bank send wallet <to-wallet-address> 1000000ua0gi --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
------------------------------------------------------------------
-
-## Governance
-Query list proposal
-```bash
-0gchaind query gov proposals
-```
-
-View proposal by ID
-```bash
-0gchaind query gov proposal 1
-```
-
-Vote option yes
-```bash
-0gchaind tx gov vote 1 yes --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
-Vote option no
-```bash
-0gchaind tx gov vote 1 no --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
-Vote option asbtain
-```bash
-0gchaind tx gov vote 1 abstain --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
-
-Vote option NoWithVeto
-```bash
-0gchaind tx gov vote 1 NoWithVeto --from wallet --chain-id $CHAIN_ID --gas auto --gas-adjustment 1.4 fees 800ua0gi -y
-```
------------------------------------------------------------------
-
-## Maintenance
-Get validator information
-```bash
-0gchaind status 2>&1 | jq .validator_info
-```
-
-Get sync information
-```bash
-0gchaind status 2>&1 | jq .sync_info
-```
-
-Get node peer
-```bash
-echo $(0gchaind tendermint show-node-id)'@'$(curl -s ifconfig.me)':'$(cat $HOME/.0gchain/config/config.toml | sed -n '/Address to listen for incoming connection/{n;p;}' | sed 's/.*://; s/".*//')
-```
-
-Check validator keys
-```bash
-[[ $(0gchaind q staking validator $(0gchaind keys show wallet --bech val -a) -oj | jq -r .consensus_pubkey.key) = $(0gchaind status | jq -r .validator_info.PubKey.value) ]] && echo -e "\n\e[1m\e[32mTrue\e[0m\n" || echo -e "\n\e[1m\e[31mFalse\e[0m\n"
-```
-
-Get live peers
-```bash
-curl -sS http://localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
-```
-
-Enable prometheus
-```bash
-sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.0gchain/config/config.toml
-```
-
-Reset chain data
-```bash
-0gchaind tendermint unsafe-reset-all --keep-addr-book --home $HOME/.0gchain --keep-addr-book
-```
-
-> [!CAUTION]
-> Before moving on to the next step, be aware that all chain data will be erased. **Ensure you've created a backup of your priv_validator_key.json!**
-
-Remove node
-```bash
+```console
 cd $HOME
 sudo systemctl stop 0gchaind
 sudo systemctl disable 0gchaind
@@ -378,8 +187,3 @@ sudo rm -rf $HOME/0g-chain
 sudo rm -rf $HOME/go
 ```
 
------------------------------------------------------------------
-
-<p align="center">
-  &copy; 2024 BlockHub. All rights reserved.
-</p>
