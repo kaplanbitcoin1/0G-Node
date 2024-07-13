@@ -172,7 +172,7 @@ Cüzdanı Silme
 
 ```console
 0gchaind tx staking delegate $(0gchaind keys show wallet --bech val -a)  1000000ua0gi --from wallet -y
-
+```
 
 
 
