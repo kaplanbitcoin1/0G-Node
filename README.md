@@ -2,32 +2,14 @@
 ![0G Node](https://github.com/user-attachments/assets/a0fabd2c-34f3-473f-b2cb-2c569c6c77f5)
 
 
-
-# 0G Node Guide
-This guide will assist you in the installation process of the 0G node.
-
------------------------------------------------------------------
-
-## Required Specifications
-| Required | Specifications |
+## Sistem gereksinimleri
 |-|-
 | CPU | 8 Cores |
-| Memory | 64 GB |
-| Storage | 1 TB NVMe SSD |
-| Bandwidth | 100mbps |
-| OS | Linux |
+| Ram | 16 GB |
+| Disk | 1 TB SSD |
+| Ubuntu 22.04 |
 
------------------------------------------------------------------
 
-## Public Endpoint
-| Public | Endpoint |
-|-|-
-| RPC | https://og-testnet-rpc.blockhub.id |
-| API | https://og-testnet-api.blockhub.id |
-| gRPC | https://og-testnet-grpc.blockhub.id |
-| jsonRPC | https://og-testnet-jsonrpc.blockhub.id |
-
------------------------------------------------------------------
 
 ## Manual Node Installation
 ### 1. Install Required Packages
