@@ -23,4 +23,4 @@ sudo systemctl restart zgsd
  tail -f ~/0g-storage-node/run/log/zgs.log.$(TZ=UTC date +%Y-%m-%d)
 ```
 
-Loglar şıkır şıkır
+Loglar şıkır şıkır 🐅 😁
