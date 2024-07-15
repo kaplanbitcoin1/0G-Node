@@ -8,7 +8,7 @@ sudo systemctl stop zgsd
 nano $HOME/0g-storage-node/run/log_config
 ```
 
-* warn,hyper=warn,h2=warn olarak değiştirelim 
+# warn,hyper=warn,h2=warn olarak değiştirelim 
 
 
 ```console
