@@ -25,4 +25,4 @@ sudo systemctl restart zgsd
 
 Loglar şıkır şıkır 🐅 😁
 
-### Ekstra olarak Log dosyalarını (öncelikle stop edip) - dosya yolu: /root/0g-storage-node/run/log/ - en yakın tarih kalacak şekilde temizleyebilirsiniz.
+### Ekstra olarak Log dosyalarını, (öncelikle stop edip) -Dosya yolu:/root/0g-storage-node/run/log/- en yakın tarih kalacak şekilde temizleyebilirsiniz.
