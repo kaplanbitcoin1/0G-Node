@@ -1,25 +1,25 @@
-0G Storage depolama probleminden bu yöntemle kurtulabilirsiniz. Ekstra olarak Log dosyalarını (öncelikle stop edip) - dosya yolu: /root/0g-storage-node/run/log/ - en yakın tarih kalacak şekilde temizleyebilirsiniz.
+### 0G Storage depolama probleminden bu yöntemle kurtulabilirsiniz. Ekstra olarak Log dosyalarını (öncelikle stop edip) - dosya yolu: /root/0g-storage-node/run/log/ - en yakın tarih kalacak şekilde temizleyebilirsiniz.
 
-```shell
+```console
 sudo systemctl stop zgsd
 ```
 
-```shell
+```console
 nano $HOME/0g-storage-node/run/log_config
 ```
 
 warn,hyper=warn,h2=warn 
 
 
-```shell
+```console
 sudo systemctl start zgsd
 ```
 
-```shell
+```console
 sudo systemctl restart zgsd
 ```
 
-```shell
+```console
  tail -f ~/0g-storage-node/run/log/zgs.log.$(TZ=UTC date +%Y-%m-%d)
 ```
 
