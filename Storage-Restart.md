@@ -62,7 +62,7 @@ sudo chmod +x /usr/local/bin/inspection.sh
 ```
 
 
-* Çalışıyor mu diye kontro letmek için service dosyası
+* Çalışıyor mu diye kontrol etmek için service dosyası
 
 
 ```
